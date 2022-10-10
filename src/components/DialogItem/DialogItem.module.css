@@ -1,0 +1,27 @@
+.dialog{
+    display: flex;
+    height: 50px;
+    width: 150px;
+    border: 1px solid black;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+a{
+    display: flex;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    align-items:center;
+    
+}
+
+.linkLogo{
+    margin-right: 5px;
+}
+
+img{
+    height: 30px;
+    width: 30px;
+}

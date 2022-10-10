@@ -1,0 +1,15 @@
+.MusicBox{
+    border-bottom: 1px solid grey;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.musicName{
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+.musicLink{
+    color: green;
+}

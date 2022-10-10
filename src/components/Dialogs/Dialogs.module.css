@@ -1,0 +1,45 @@
+.dialogs{
+ display: grid;
+ grid-template-columns: 2fr 10fr;
+ row-gap: 50px;
+ 
+}
+
+
+.dialog{
+    display: flex ;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+    align-items: center;
+    
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: stretch;
+    max-height: 700px;
+   
+
+}
+
+.message{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #bfbdbd;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.addMessage{
+    display: flex;
+    align-items: center
+}
+

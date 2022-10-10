@@ -1,0 +1,47 @@
+.item {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 40px;
+    border: 1px solid rgb(89, 84, 84);
+    
+  }
+
+  .item img{
+    width: 40px;
+    height: 40px;
+  }
+
+  .posts{
+    width: 200px;
+  }
+
+  .MyPosts{
+    display: flex;
+    align-items:center;
+    margin-bottom: 15px;
+    margin-left: 2px;
+  }
+  button{
+    height: 30px;
+    margin-left: 5px;
+    background-color: #5F9EA0;
+    border:0px;
+    font-size: medium;
+    font-weight: 400;
+    color:#000062;
+  }
+
+  .myStatus{
+    display: flex;
+    width: 200px;
+    height: 25px;
+    align-items: stretch;
+    cursor: pointer;
+    margin-left: 5px;
+
+  }
+  .myStatus:hover{
+    font-size: 20px;
+    box-shadow: 0px 3px 3px 6px #5F9EA0;
+  }

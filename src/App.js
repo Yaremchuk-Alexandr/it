@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import HeaderContainer from './components/Header/HeaderContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import NewsContainerConnect from './components/News/NewsContainer';
+import MusicContainer from './components/Music/MusicContainer';
+import Settings from './components/Settings/Settings';
+import LoginContainer from './components/Login/LoginContainer';
+import UsersContainer from './components/Users/UsersContainer'
+import { Routes, Route } from 'react-router-dom';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import NavbarContainer from './components/Navbar/NavbarContainer';
 
-function App() {
+
+
+
+
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app-wrapper' >
+      <HeaderContainer />
+      <Routes>
+        <Route path='*' element={<NavbarContainer friends={props.friends} />} />
+      </Routes>
+
+      <div className='app-wrapper-content' >
+        <Routes>
+          <Route path='/dialogs/*' element={<DialogsContainer
+                                            state={props.store}
+                                            dispatch={props.dispatch}
+          />} />
+          <Route path='/profile/*' element={<ProfileContainer
+                                            state={props.store}
+                                            dispatch={props.dispatch} />} />
+          <Route path='/profile/:userId' element={<ProfileContainer
+                                            state={props.store}
+                                            dispatch={props.dispatch} />} />
+          <Route path='/news' element={<NewsContainerConnect />} />
+          <Route path='/music' element={<MusicContainer />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/users' element={<UsersContainer />} />
+          <Route path='/login' element={<LoginContainer/>} />
+        </Routes >
+      </div>
     </div>
-  );
+
+
+  )
 }
+
 
 export default App;

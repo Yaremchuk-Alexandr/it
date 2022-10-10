@@ -1,0 +1,122 @@
+.userswrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.userItem{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-around;
+    align-items: center;
+    word-wrap: break-word;
+    width: 950px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.userItem:first-child{
+    margin-top: 5px;
+}
+
+.Userleft{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: center;
+
+
+   width: 150px;
+}
+
+.logo{
+    display: block;
+   margin-top: 5px;
+   margin-left: 5px;
+   height: 50px;
+   width: 50px;
+   margin-bottom: 7px;
+   border-radius: 15px;
+   
+
+}
+
+.UserCenter{
+ display: flex;
+ flex-direction: column;
+ flex-wrap: wrap;
+ align-content: space-between;
+ width: 300px;
+ height: 200px;
+}
+
+.UserRight{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-between;
+    width: 100px;
+    height: 150px;
+}
+
+.UserRightLeft{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    
+}
+
+.userFullName{
+height: 25px;
+margin-bottom: 45px;
+font-weight: bold;
+font-size: 24px;
+}
+
+.userStatus{
+height: 25px;
+}
+
+.UserRightright{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: flex-end
+}
+
+.usersBtn{
+    cursor: pointer;
+    height: 25px;
+    color:white;
+    font-size: 16px;
+    background-color:#5F9EA0 ;
+}
+
+.selectedPage{
+    font-weight: 600;
+    
+    
+}
+
+.userPagination{
+    margin: 0 auto;
+    font-size: 24px;
+    cursor: pointer;
+    
+}
+
+.preloader{
+    margin: 0 auto;
+    display: flex;
+    height: 100px;
+    width: 200px;
+}

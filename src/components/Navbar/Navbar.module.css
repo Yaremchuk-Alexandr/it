@@ -1,0 +1,68 @@
+.nav {
+  grid-area: n;
+  background-color: cadetblue;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border: 1px solid gray;
+  color: #fff;
+}
+
+.link {
+  color: white;
+  border: 0;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover{
+  color:gold
+}
+
+
+.active {
+  color: gold;
+  font-weight: bold;
+}
+
+.siteBar{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+  border: 1px solid gray;
+}
+
+.siteBarName{
+  font-weight: 500;
+  color:gold;
+  padding-bottom: 10px;
+}
+
+.sideBarItems{
+  width: 150px;
+  
+  display: flex;
+  justify-content: space-around;
+}
+
+.sideBarItem{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.siteBarItemNumber{
+  display: flex;
+  
+  justify-content: space-around;
+}
