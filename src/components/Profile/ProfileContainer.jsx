@@ -1,8 +1,8 @@
 import React from "react";
 import Profile from "./profile";
 import { connect } from "react-redux";
-import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer";
-import {setToggleFetching} from '../../redux/users-page-reducer'
+import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer.ts";
+import {setToggleFetching} from '../../redux/users-page-reducer.ts'
 import { useEffect  } from "react";
 import {useParams} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';

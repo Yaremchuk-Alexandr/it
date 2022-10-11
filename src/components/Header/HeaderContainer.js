@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
-import { setUserData, authMeThunk } from "../../redux/auth-reducer";
-import {setToggleFetching} from '../../redux/users-page-reducer'
+import { setUserData, authMeThunk } from "../../redux/auth-reducer.ts";
+import {setToggleFetching} from '../../redux/users-page-reducer.ts'
 import { useEffect } from "react";
-import {userLoginThunk} from '../../redux/login-reducer'
-import {logOutMeThunk} from '../../redux/auth-reducer'
+import {userLoginThunk} from '../../redux/login-reducer.ts'
+import {logOutMeThunk} from '../../redux/auth-reducer.ts'
 
 
 

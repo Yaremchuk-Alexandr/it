@@ -1,9 +1,11 @@
 import { getNewsList } from '../api/api'
 
-const GET_NEWS = 'GET_NEWS'
+const GET_NEWS:string = 'GET_NEWS'
 
-
-const initialState = {
+type newsInitialState = {
+    newsList:[]
+}
+const initialState:newsInitialState = {
     newsList: []
 }
 
@@ -21,7 +23,7 @@ const NewsReducer = (state = initialState, action) => {
 }
 
 
-export const getNews = (action) => ({ type: GET_NEWS, action })
+export const getNews = (action:any) => ({ type: GET_NEWS, action })
 
 
 export const getNewsThunk = () => {

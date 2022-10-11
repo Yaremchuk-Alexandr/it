@@ -1,11 +1,17 @@
 import { userAPI } from '../api/api';
 
-const SET_AUTH = 'SET_AUTH';
-const LOGOUT ='LOGOUT'
+const SET_AUTH:string = 'SET_AUTH';
+const LOGOUT:string ='LOGOUT'
 
 
-
-const initialState = {
+type authInitialStateType = {
+    email:string | null
+    login:string | null
+    userId: number | null
+    isAuth: boolean |null
+    isFething: boolean
+}
+const initialState: authInitialStateType = {
     email: null,
     login: null,
     userId: null,

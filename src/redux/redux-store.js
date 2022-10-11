@@ -1,13 +1,13 @@
 import  {applyMiddleware, legacy_createStore as createStore}  from 'redux';
 import { combineReducers } from 'redux';
-import profilePageReducer from './profile-page-reducer';
-import dialogsPageReducer from './dialogs-page-reducer';
-import usersPageReducer from './users-page-reducer';
-import navbarReducer from './navbar-reducer';
-import authReducer from './auth-reducer';
-import musicReducer from './music-reducer';
-import newsReducer from './news-reducer'
-import UserLoginReducer from './login-reducer';
+import profilePageReducer from './profile-page-reducer.ts';
+import dialogsPageReducer from './dialogs-page-reducer.ts';
+import usersPageReducer from './users-page-reducer.ts';
+import navbarReducer from './navbar-reducer.ts';
+import authReducer from './auth-reducer.ts';
+import musicReducer from './music-reducer.ts';
+import newsReducer from './news-reducer.ts'
+import UserLoginReducer from './login-reducer.ts';
 import  thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form'
 

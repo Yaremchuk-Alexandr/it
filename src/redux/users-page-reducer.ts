@@ -1,24 +1,37 @@
 import { userAPI } from "../api/api";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLOW = 'UNFOLOW';
-const SET_USERS = 'SET-USERS';
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
-const TOTAL_USERS_CURRENT = 'TOTAL_USERS_CURRENT';
-const TOGGLE_ISFETCHING = 'TOGGLE_ISFETCHING';
+const FOLLOW :string = 'FOLLOW';
+const UNFOLOW :string = 'UNFOLOW';
+const SET_USERS :string = 'SET-USERS';
+const SET_CURRENT_PAGE :string = 'SET-CURRENT-PAGE';
+const TOTAL_USERS_CURRENT :string = 'TOTAL_USERS_CURRENT';
+const TOGGLE_ISFETCHING :string = 'TOGGLE_ISFETCHING';
 
 
+type userType ={
+    id:number,
+    folowed:boolean,
+    url:string
+    fullName:string
+    status:string
+    location:{city: string ,country: string }
+}
+type userInitialState = {
+    users:Array<userType>
+    pageSize:number
+    totalUsersCount:number
+    currentPage:number
+    isToggleFetching:boolean
+}
 
-
-
-const initialState = {
+const initialState:userInitialState = {
 
     users: [
         // { id: 1, folowed: false, url:'https://www.nicepng.com/png/detail/128-1280593_computer-user-icon-img-users.png', fullName: 'Max', status: 'I am here', location: { city: 'Kiev', country: 'Ukraine' } },
         // { id: 2, folowed: true, url:'https://www.nicepng.com/png/detail/128-1280593_computer-user-icon-img-users.png', fullName: 'Alf', status: 'I am here too', location: { city: 'London', country: 'Enland' } },
         // { id: 3, folowed: false, url:'https://www.nicepng.com/png/detail/128-1280593_computer-user-icon-img-users.png', fullName: 'Alfred', status: 'I am here too too', location: { city: 'Warshava', country: 'Poland' } },
         // { id: 4, folowed: true, url:'https://www.nicepng.com/png/detail/128-1280593_computer-user-icon-img-users.png', fullName: 'Karl', status: 'And I am here ', location: { city: 'Berlin', country: 'Germany' } },
-    ],
+],
     pageSize: 5,
     totalUsersCount: 20,
     currentPage: 1,
@@ -27,7 +40,7 @@ const initialState = {
 
 }
 
-const usersPageReducer = (state = initialState, action) => {
+const usersPageReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -71,12 +84,12 @@ const usersPageReducer = (state = initialState, action) => {
 
 }
 
-export const follow = (userId) => ({ type: FOLLOW, userId })
-export const unFollow = (userId) => ({ type: UNFOLOW, userId })
-export const setUsers = (users) => ({ type: SET_USERS, users })
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
-export const setTotalUsersCount = (totalUsersCount) => ({ type: TOTAL_USERS_CURRENT, totalUsersCount })
-export const setToggleFetching = (isToggleFetching) => ({ type: TOGGLE_ISFETCHING, isToggleFetching })
+export const follow = (userId:any) => ({ type: FOLLOW, userId })
+export const unFollow = (userId:any) => ({ type: UNFOLOW, userId })
+export const setUsers = (users:any) => ({ type: SET_USERS, users })
+export const setCurrentPage = (currentPage:any) => ({ type: SET_CURRENT_PAGE, currentPage })
+export const setTotalUsersCount = (totalUsersCount:any) => ({ type: TOTAL_USERS_CURRENT, totalUsersCount })
+export const setToggleFetching = (isToggleFetching:any) => ({ type: TOGGLE_ISFETCHING, isToggleFetching })
 
 
 

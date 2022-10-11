@@ -1,5 +1,5 @@
 import React from "react";
-import { addPost,getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk} from "../../../redux/profile-page-reducer";
+import { addPost,getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk} from "../../../redux/profile-page-reducer.ts";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 

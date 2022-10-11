@@ -1,15 +1,28 @@
 import { userAPI, userStatusApi } from "../api/api";
-import { setToggleFetching } from '../redux/users-page-reducer';
+import { setToggleFetching } from './users-page-reducer';
 
 
-const SET_STATUS = 'SET_STATUS';
-const ADD_POST = 'ADD-POST';
+const SET_STATUS:string = 'SET_STATUS';
+const ADD_POST:string = 'ADD-POST';
 // const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SET_PROFILE = 'SET_PROFILE';
-const SET_MY_STATUS ='SET_MY_STATUS '
+const SET_PROFILE:string = 'SET_PROFILE';
+const SET_MY_STATUS:string ='SET_MY_STATUS '
 
 
-const initialState = {
+
+type postType ={
+    id:number,
+    message:string,
+    like:number
+}
+type profileInitialState = {
+    posts:Array<postType>
+    newPostText: string
+    profile:string |null
+    status:string
+    myStatus:string
+}
+const initialState:profileInitialState = {
     posts: [
         { id: 1, message: 'Hello guys !!!', like: 5 },
         { id: 2, message: 'Hi! how are you ?', like: 7 },
@@ -24,7 +37,7 @@ const initialState = {
 
 }
 
-const profilePageReducer = (state = initialState, action) => {
+const profilePageReducer = (state = initialState, action:any) => {
 
     switch (action.type) {
         case ADD_POST:{
@@ -49,11 +62,11 @@ const profilePageReducer = (state = initialState, action) => {
 
 }
 
-export const addPost = (formData) => ({ type: ADD_POST, formData})
+export const addPost = (formData:any) => ({ type: ADD_POST, formData})
 // export const onPostChange = (text) => ({ type: UPDATE_NEW_POST_TEXT, text })
-export const setProfile = (profile) => ({ type: SET_PROFILE, profile })
-export const setUserStatus = (status) => ({ type: SET_STATUS, status})
-export const setMyStatus = (status) => ({ type: SET_MY_STATUS, status})
+export const setProfile = (profile:any) => ({ type: SET_PROFILE, profile })
+export const setUserStatus = (status:any) => ({ type: SET_STATUS, status})
+export const setMyStatus = (status:any) => ({ type: SET_MY_STATUS, status})
 
 
 

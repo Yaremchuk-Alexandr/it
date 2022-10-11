@@ -1,6 +1,22 @@
-const ADD_MESSAGE = 'ADD-MESSAGE';
+const ADD_MESSAGE:string = 'ADD-MESSAGE';
 
-const initialState = {
+type dialogType ={
+    id: number,
+    name:string
+}
+type massageType = {
+    id:number,
+    massage:string
+}
+
+type dialogsType = Array<dialogType>
+type messagesType = Array<massageType>
+
+type dialogInitialState= {
+    dialogs:dialogsType,
+    messages:messagesType
+}
+const initialState: dialogInitialState = {
     dialogs: [
         { id: 1, name: 'Sasha' },
         { id: 2, name: 'Tanya' },
@@ -32,6 +48,6 @@ const dialogsPageReducer = (state = initialState, action) => {
 
 }
 
-export const addMessage = (formData) => ({ type: ADD_MESSAGE, formData })
+export const addMessage = (formData:any) => ({ type: ADD_MESSAGE, formData })
 
 export default dialogsPageReducer

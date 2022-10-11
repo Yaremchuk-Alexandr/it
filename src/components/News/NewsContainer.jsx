@@ -1,7 +1,7 @@
 import React from 'react'
 import News from './News'
 import { connect } from 'react-redux';
-import {getNewsThunk} from '../../redux/news-reducer'
+import {getNewsThunk} from '../../redux/news-reducer.ts'
 import { useEffect } from 'react';
 
 

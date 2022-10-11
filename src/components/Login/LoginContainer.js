@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import {userLoginThunk} from '../../redux/login-reducer';
-import {authMeThunk} from '../../redux/auth-reducer';
-import {setToggleFetching} from '../../redux/users-page-reducer';
+import {userLoginThunk} from '../../redux/login-reducer.ts';
+import {authMeThunk} from '../../redux/auth-reducer.ts';
+import {setToggleFetching} from '../../redux/users-page-reducer.ts';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';

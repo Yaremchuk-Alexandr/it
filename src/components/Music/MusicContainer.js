@@ -1,6 +1,6 @@
 import Music from "./Music";
 import { connect } from 'react-redux';
-import { setMusicThunk } from '../../redux/music-reducer'
+import { setMusicThunk } from '../../redux/music-reducer.ts'
 import { useEffect } from 'react';
 
 

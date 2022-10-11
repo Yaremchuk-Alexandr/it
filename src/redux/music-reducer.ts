@@ -1,12 +1,17 @@
 import { getMusic } from '../api/api';
 
-const SET_MUSIC_LIST = 'SET_MUSIC_LIST';
+const SET_MUSIC_LIST: string = 'SET_MUSIC_LIST';
 // const SELECT_MUSIC_TRACK = 'SELECT_MUSIC_TRACK'
 
 
+type musicInitialStateType = {
+    pageSize: number,
+    startFrom: number,
+    tracks: [],
+    track:{}
+}
 
-
-const initialState = {
+const initialState:musicInitialStateType = {
     pageSize: 10,
     startFrom: 1,
     tracks:[ ],
@@ -14,7 +19,8 @@ const initialState = {
     
 }
 
-const musicReducer = (state = initialState, action) => {
+
+const musicReducer = (state = initialState, action:any) => {
 
     switch (action.type) {
         case SET_MUSIC_LIST: {
@@ -34,7 +40,7 @@ const musicReducer = (state = initialState, action) => {
 }
 
 
-export const setMusicData = (musicList) => ({ type: SET_MUSIC_LIST, musicList})
+export const setMusicData = (musicList:any) => ({ type: SET_MUSIC_LIST, musicList})
 // export const selectTrack = (key, title, url) => ({ type:SELECT_MUSIC_TRACK, action:{key, title, url} })
 
 
