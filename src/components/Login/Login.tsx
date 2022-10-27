@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from 'redux-form';
+import { Field, FormSubmitHandler, reduxForm, SubmitHandler } from 'redux-form';
 import classes from './login.module.css'
 import { requered, maxLengthCreator } from "../../utils/Validators/validate";
 import { Element } from "../../common/Preloader/FormControls/FormControl";
@@ -7,7 +7,7 @@ import { Element } from "../../common/Preloader/FormControls/FormControl";
 
 const maxLenth30 = maxLengthCreator(30)
 
-const LoginForm = (props) => {
+const LoginForm = (props: { handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined; }) => {
 
     return (<>
         <form onSubmit={props.handleSubmit}>
@@ -30,13 +30,17 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
-const Login = (props) => {
 
+
+const Login = (props: {
+    userLoginThunk: any; onSubmit: FormSubmitHandler<{}, {}, string> | SubmitHandler<{}, {}, string> | undefined; 
+    authMeThunk: any; login:string|null;isAuth:boolean|null|undefined; email: string|null}) => {
+    
     return (<div>
         <h2>Login</h2>
         <LoginReduxForm onSubmit={props.onSubmit}
-            userLoginThunk={props.userLoginThunk}     
-            authMeThunk={props.authMeThunk} 
+            // userLoginThunk={props.userLoginThunk()}     
+            // authMeThunk={props.authMeThunk} 
         />
     </div>
     )

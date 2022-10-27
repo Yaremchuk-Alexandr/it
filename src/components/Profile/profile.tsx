@@ -7,7 +7,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
 
-const Profile =(props) =>{
+const Profile =(props:any) =>{
 
   // let navigate = useNavigate()
 

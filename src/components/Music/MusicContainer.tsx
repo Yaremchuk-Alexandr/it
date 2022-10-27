@@ -1,32 +1,38 @@
 import Music from "./Music";
 import { connect } from 'react-redux';
-import { setMusicThunk } from '../../redux/music-reducer.ts'
+import { searchMusicThunk, setMusicThunk } from '../../redux/music-reducer'
 import { useEffect } from 'react';
+import { AppStateType } from '../../redux/redux-store';
 
 
-const MusicContainer = (props) => {
+
+
+
+
+const MusicContainer = (props:any) => {
 
     useEffect(() => {
         setMusicThunk()
-    }, [setMusicThunk])
+    }, [])
 
-
+   
 
     return (
         <Music
-
             setMusicThunk={setMusicThunk}
-          
+            searchMusicThunk= {searchMusicThunk(props.term)}
             {...props}
         />
     )
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStateType) => {
     return {
         tracks: state.music.tracks,
-        track:state.music.track
+        track:state.music.track,
+        hits: state.music.hits,
+        hit:state.music.hit
         // key: state.music.tracks.key,
         // title: state.music.tracks.title,
         // subtitle: state.music.tracks.subtitle,
@@ -34,6 +40,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const MusicMaxContainer = connect(mapStateToProps, { setMusicThunk })(MusicContainer)
+const MusicMaxContainer = connect(mapStateToProps, { setMusicThunk, searchMusicThunk })(MusicContainer)
 
 export default MusicMaxContainer

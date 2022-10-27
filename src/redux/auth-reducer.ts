@@ -1,7 +1,9 @@
-import { userAPI } from '../api/api';
+import { ThunkAction } from 'redux-thunk';
+import { ResultCodesEnum, userAPI } from '../api/api';
+import { AppStateType } from './redux-store';
 
-const SET_AUTH:string = 'SET_AUTH';
-const LOGOUT:string ='LOGOUT'
+const SET_AUTH = 'SET_AUTH';
+const LOGOUT ='LOGOUT'
 
 
 type authInitialStateType = {
@@ -21,7 +23,7 @@ const initialState: authInitialStateType = {
 
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: ActionsTypes): authInitialStateType => {
 
     switch (action.type) {
         case SET_AUTH: {
@@ -42,22 +44,30 @@ const authReducer = (state = initialState, action) => {
             return { ...state }
     }
 }
+type ActionsTypes = setUserDataType| logOutMeType
+export type setUserDataType ={
+    type: typeof SET_AUTH
+    data: { userId: number, email: string, login: string, isAuth: boolean}
+}
+type logOutMeType = {
+    type: typeof LOGOUT
+    data:{userId:null, email:null, login: null}
+}
 
+export const setUserData = (userId: number, email: string, login: string, isAuth: boolean):setUserDataType => ({ type: SET_AUTH, data: { userId, email, login, isAuth } })
+export const logOutMe = (userId:  null, email: null, login: null):logOutMeType => ({ type: LOGOUT, data: { userId, email, login} })
 
-export const setUserData = (userId, email, login, isAuth) => ({ type: SET_AUTH, data: { userId, email, login, isAuth } })
-export const logOutMe = (userId, email, login) => ({ type: LOGOUT, data: { userId, email, login} })
-
-export const authMeThunk = () => async (dispatch) => {
+export const authMeThunk = (email:string |null, login:string |null, isAuth:boolean |null ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch) => {
          let data = await userAPI.getauthMe()              
-        if (data.resultCode === 0) {
-            let { userId, email, login } = data.data
-            dispatch(setUserData(userId, email, login, true))
+        if (data.resultCode === ResultCodesEnum.Succes) {
+            let { id, email, login } = data.data
+            dispatch(setUserData(id, email, login, true))
         }
 }   
 
-export const logOutMeThunk = (id, email, login) => async (dispatch) => {
+export const logOutMeThunk = (id: any, email: any, login: any): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch) => {
         let data = await userAPI.logOutMe()
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Succes) {
             dispatch(logOutMe(null, null, null))
         }
     }

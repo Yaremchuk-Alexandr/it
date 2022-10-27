@@ -1,12 +1,14 @@
+import { AppStateType } from './redux-store';
+import { Dispatch } from "redux";
 import { userAPI, userStatusApi } from "../api/api";
-import { setToggleFetching } from './users-page-reducer';
 
 
-const SET_STATUS:string = 'SET_STATUS';
-const ADD_POST:string = 'ADD-POST';
-// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SET_PROFILE:string = 'SET_PROFILE';
-const SET_MY_STATUS:string ='SET_MY_STATUS '
+
+const SET_STATUS = 'SET_STATUS';
+const ADD_POST = 'ADD-POST';
+const SET_PROFILE = 'SET_PROFILE';
+const SET_MY_STATUS ='SET_MY_STATUS'
+
 
 
 
@@ -37,7 +39,7 @@ const initialState:profileInitialState = {
 
 }
 
-const profilePageReducer = (state = initialState, action:any) => {
+const profilePageReducer = (state = initialState, action:ActionsTypes): profileInitialState => {
 
     switch (action.type) {
         case ADD_POST:{
@@ -61,41 +63,60 @@ const profilePageReducer = (state = initialState, action:any) => {
     }
 
 }
+type ActionsTypes = addPostType | setProfileType | setUserStatusType | setMyStatusType 
 
-export const addPost = (formData:any) => ({ type: ADD_POST, formData})
-// export const onPostChange = (text) => ({ type: UPDATE_NEW_POST_TEXT, text })
-export const setProfile = (profile:any) => ({ type: SET_PROFILE, profile })
-export const setUserStatus = (status:any) => ({ type: SET_STATUS, status})
-export const setMyStatus = (status:any) => ({ type: SET_MY_STATUS, status})
+type addPostType = {
+    type: typeof ADD_POST
+    formData:{post:string}
+}
+export const addPost = (formData:{post:string}):addPostType => ({ type: ADD_POST, formData})
+
+type setProfileType = {
+    type : typeof SET_PROFILE
+    profile: any
+}
+export const setProfile = (profile:any):setProfileType => ({ type: SET_PROFILE, profile })
+type setUserStatusType ={
+    type: typeof SET_STATUS
+    status:string
+}
+export const setUserStatus = (status:string):setUserStatusType => ({ type: SET_STATUS, status})
+type setMyStatusType = {
+    type: typeof SET_MY_STATUS
+    status: string
+}
+export const setMyStatus = (status:string):setMyStatusType => ({ type: SET_MY_STATUS, status})
 
 
 
 
-export const getUserProfileThunk = (params, setToggleFetching) => async (dispatch) => {
+export const getUserProfileThunk = (params:any, setToggleFetching:any) => async (dispatch:Dispatch<ActionsTypes>) => {
         dispatch(setToggleFetching(true))
         let response = await userAPI.getUserProfile(params)
             dispatch(setToggleFetching(false))
             dispatch(setProfile(response.data))
           
     }
-export const getUserStatusThunk = (userId) => async (dispatch) => {
+export const getUserStatusThunk = (userId:number) => async (dispatch:Dispatch<ActionsTypes>) => {
        let response = await  userStatusApi.getUserStatus(userId)
              dispatch(setUserStatus(response.data))       
 }
-export const updateUserStatusThunk = (status) => async (dispatch) => {   
+export const updateUserStatusThunk = (status:string) => async (dispatch:Dispatch<ActionsTypes>) => {   
         let response = await userStatusApi.updateUserStatus(status)
             if (response.data.resultCode === 0)
             dispatch(setUserStatus(status))
   }
-export const updateMyStatusThunk = (status) => async (dispatch) => {   
+
+
+export const updateMyStatusThunk = (status:string) => async (dispatch:Dispatch<ActionsTypes>) => {   
     let response = await userStatusApi.updateUserStatus(status)
         if (response.data.resultCode === 0)
         dispatch(setMyStatus(status))
     }
 
-export const getMyStatusThunk = () => async (dispatch) => {
+export const getMyStatusThunk = () => async (dispatch:Dispatch<ActionsTypes>, getState:()=>AppStateType) => {
     let response = await userStatusApi.getMyStatus() 
-         dispatch(setMyStatus(response.data))
+         dispatch(setMyStatus (response.data))
 }
 
 

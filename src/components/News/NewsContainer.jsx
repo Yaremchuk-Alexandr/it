@@ -9,12 +9,13 @@ const NewsContainer = (props) => {
 
     useEffect(()=>{
         props.getNewsThunk()
-    },[])
+    },[props])
      
  
 
  return (
-    < News {...props}/>
+    < News newsList= {props.newsList}
+                    {...props}/>
     )
 }
 

@@ -35,7 +35,7 @@ const App = (props) => {
                                             state={props.store}
                                             dispatch={props.dispatch} />} />
           <Route path='/news' element={<NewsContainerConnect />} />
-          <Route path='/music' element={<MusicContainer />} />
+          <Route  exact path='/music' element={<MusicContainer />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/users' element={<UsersContainer />} />
           <Route path='/login' element={<LoginContainer/>} />

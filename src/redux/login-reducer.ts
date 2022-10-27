@@ -1,25 +1,27 @@
+import { ThunkAction } from 'redux-thunk';
 import { userAPI } from "../api/api"
+import { AppStateType } from './redux-store';
 
-const LOGIN_USER:string ='LOGIN_USER'
+const LOGIN_USER ='LOGIN_USER'
 
-type userType={
-    id:string
-}
-type loginInitialState = {
-    user: userType
-}
-const initialState: loginInitialState = {
+
+
+
+const initialState = {
+    
     user:{
-        id:''
+        id:'',
+
     }
 }
+ type loginInitialState = typeof initialState
 
-const UserLoginReducer =(state= initialState, action: any)=>{
+const UserLoginReducer =(state= initialState, action:addUserDataType):loginInitialState =>{
  switch(action.type){
     case LOGIN_USER:{
         return{ 
             ...state,
-            id : action.id
+            ...action.id
         } 
     }
     default:
@@ -27,13 +29,17 @@ const UserLoginReducer =(state= initialState, action: any)=>{
 } 
 
 }
+type addUserDataType ={
+    type:typeof LOGIN_USER
+    id:any 
+}
+export const addUserData =(id:string):addUserDataType=> ({type:LOGIN_USER, id})
 
-export const addUserData =(id:any)=> ({type:LOGIN_USER, id})
 
-
-export const userLoginThunk = (email:any, password:any, rememberMe:any)=> async(dispatch:any)=>{
-        let responce = await userAPI.getUserLogin(email, password, rememberMe )
-            dispatch(addUserData(addUserData))
+export const userLoginThunk = (formData:any): ThunkAction<void, AppStateType, unknown, addUserDataType> => 
+        (dispatch)=> {
+        return  userAPI.getUserLogin( {...formData} )
+            // dispatch(addUserData(addUserData))
 }
 
 

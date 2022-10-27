@@ -1,27 +1,48 @@
 import React from "react";
 import { connect } from "react-redux";
-import { unFollow, follow, setCurrentPage, setTotalUsersCount, setToggleFetching, getUsers, pageChanges, unfollowThunk, followThunk } from "../../redux/users-page-reducer.ts";
+import { unFollow, follow, setCurrentPage, setTotalUsersCount, setToggleFetching, getUsers, pageChanges, unfollowThunk, followThunk, userType, findUsersThunk } from "../../redux/users-page-reducer";
 import Users from "./Users";
 import Preloader from "../../common/Preloader/Preloader";
+import { AppStateType } from "../../redux/redux-store";
 
 
 
+type PropsType ={
+    getUsers:(currentPage:number , pageSize: number )=> void
+    pageChanges:(pageNumber: number, pageSize:number )=> void
+    findUsersThunk:( term:string) => void
+    currentPage:number
+    pageSize:number
+    isToggleFetching:boolean
+    setToggleFetching:(isToggleFetching: boolean)=> void
+    users: userType[]
+    totalUsersCount: number
+    pagesCount: number
+    unfollowThunk:(userId: number) => Promise<void>
+    followThunk: (userId: number) => Promise<void>
+    term:string
+
+    
+}
 
 
-class UsersAPI extends React.Component {
+class UsersAPI extends React.Component<PropsType> {
 
     
     componentDidMount() {
-     
-        this.props.getUsers(this.props.currentPage, this.props.pageSize) // используем санку
-
+        this.props.getUsers(this.props.currentPage, this.props.pageSize) // используем санк
     }
 
-    onPageChanges = (pageNumber) => {
+    onPageChanges = (pageNumber:number) => {
         this.props.pageChanges(pageNumber, this.props.pageSize)  // используем санку
     } 
 
-    
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any, ): void {
+        if(this.props.term !== prevProps.term){
+        this.props.findUsersThunk(this.props.term)
+        }
+        
+    }
 
     render() {
         return (<>
@@ -30,7 +51,7 @@ class UsersAPI extends React.Component {
                 users={this.props.users}
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
-                pagesCount={this.pagesCount}
+                findUsersThunk ={this.props.findUsersThunk}
                 currentPage={this.props.currentPage}
                 onPageChanges={this.onPageChanges}
                 setToggleFetching={this.props.setToggleFetching}
@@ -42,7 +63,7 @@ class UsersAPI extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStateType) => {
 
     return {
         users: state.usersPage.users,
@@ -50,6 +71,7 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isToggleFetching: state.usersPage.isToggleFetching
+       
 
     }
 }
@@ -80,7 +102,7 @@ const mapStateToProps = (state) => {
 const UsersContainer = connect(mapStateToProps,
                              { unFollow, follow,  setCurrentPage, 
                                setTotalUsersCount, setToggleFetching, getUsers, pageChanges, 
-                               unfollowThunk, followThunk })
+                               unfollowThunk, followThunk, findUsersThunk })
                         (UsersAPI)
 
 export default UsersContainer

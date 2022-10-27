@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { FC } from 'react'
 import classes from './Dialogs.module.css';
 import DialogItem from '../DialogItem/DialogItem';
-import { Field, reduxForm } from 'redux-form';
+import { Field,  FormSubmitHandler,  reduxForm, SubmitHandler } from 'redux-form';
 import { requered, maxLengthCreator  } from '../../utils/Validators/validate';
 import { Element } from '../../common/Preloader/FormControls/FormControl';
+import { dialogInitialState, addMessage } from '../../redux/dialogs-page-reducer';
 
 const maxLengt30 = maxLengthCreator(30)
 
-const MessagesForm = (props) => {
+
+
+const MessagesForm = (props:any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -20,21 +23,32 @@ const MessagesForm = (props) => {
 
 const MessagesReduxForm = reduxForm({form:'Messages'})(MessagesForm)
 
-const Message = (props) => {
+type messagePropsType = {
+    message:string
+    id:number
+}
+const Message:FC <messagePropsType> = (props) => {
 
     return <div className={classes.message}>{props.message}</div>
 }
 
-
-const Dialogs = (props) => {
-
+type dialogsPropsType = {
+    dialogs:[]
+    dialogsPage:dialogInitialState
+    id:number
+    addMessage:(formData:any)=>void
+}
+const Dialogs:FC <dialogsPropsType> = (props) => {
+   
     const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />)
     const messagesElements = props.dialogsPage.messages.map(message => <div key={message.id}><Message  message={message.massage} id={message.id} /></div> )
 
 
-    const onSubmit= (formData) =>{
+    const onSubmit= (formData:any) =>{
         props.addMessage(formData)
     }
+
+
 
     return (
         <div className={classes.dialogs}>
@@ -50,7 +64,8 @@ const Dialogs = (props) => {
                 <div className={classes.addMessage}>
 
                     <MessagesReduxForm onSubmit={onSubmit}
-                                       addMessage={props.addMessage} />
+                                    //    addMessage={props.addMessage} 
+                                    />
 
                     {/* <textarea onChange={addMessageText} value={props.dialogsPage.newMessageText} ref={newMassage} />
                     <button onClick={addMessageItem}>Submit</button> */}
@@ -60,5 +75,6 @@ const Dialogs = (props) => {
         </div>
     )
 }
+
 
 export default Dialogs;

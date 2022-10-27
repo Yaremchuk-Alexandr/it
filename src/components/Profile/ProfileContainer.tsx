@@ -1,14 +1,15 @@
 import React from "react";
 import Profile from "./profile";
 import { connect } from "react-redux";
-import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer.ts";
-import {setToggleFetching} from '../../redux/users-page-reducer.ts'
+import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer";
+import {setToggleFetching} from '../../redux/users-page-reducer'
 import { useEffect  } from "react";
 import {useParams} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import { compose } from "redux";
+import { AppStateType } from '../../redux/redux-store';
 
-let ProfileContainer = (props) => {
+let ProfileContainer = (props:any) => {
 
   let params = useParams()
 
@@ -40,7 +41,7 @@ let ProfileContainer = (props) => {
                   /> )
 }
 
-const mapStateToProps =(state) =>{
+const mapStateToProps =(state:AppStateType) =>{
     return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,

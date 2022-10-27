@@ -23,7 +23,7 @@ const PostReduxForn = reduxForm({form:'Post'})(PostForm)
 const MyPosts = (props) => {
 
     
-        const newPostElement = React.createRef()
+        // const newPostElement = React.createRef()
 
     // const onAddPost = () => {
     //     props.addPost()
@@ -70,7 +70,7 @@ const MyPosts = (props) => {
             {status 
             ?    <span onDoubleClick={()=>setStatus(false)}> {props.myStatus || 'hello'}  </span>
             :    <div className={classes.myStatus} > 
-                <input onChange={onStatusChange}  value= {statusText} defaultValue={props.myStatus} autoFocus={true} /> <button   onClick={onUpdateStatus} > SEND </button></div>
+                <input onChange={onStatusChange}  value= {statusText}  autoFocus={true} /> <button   onClick={onUpdateStatus} > SEND </button></div>
             } 
             </div>
 
