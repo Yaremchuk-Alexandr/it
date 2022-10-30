@@ -47,21 +47,22 @@ const authReducer = (state = initialState, action: ActionsTypes): authInitialSta
 type ActionsTypes = setUserDataType| logOutMeType
 export type setUserDataType ={
     type: typeof SET_AUTH
-    data: { userId: number, email: string, login: string, isAuth: boolean}
+    data: { userId: number| null, email: string| null, login: string | null, isAuth: boolean}
 }
 type logOutMeType = {
     type: typeof LOGOUT
     data:{userId:null, email:null, login: null}
 }
 
-export const setUserData = (userId: number, email: string, login: string, isAuth: boolean):setUserDataType => ({ type: SET_AUTH, data: { userId, email, login, isAuth } })
+export const setUserData = (userId: number |null, email: string | null, login: string | null, isAuth: boolean):setUserDataType => ({ type: SET_AUTH, data: { userId, email, login, isAuth } })
 export const logOutMe = (userId:  null, email: null, login: null):logOutMeType => ({ type: LOGOUT, data: { userId, email, login} })
 
-export const authMeThunk = (email:string |null, login:string |null, isAuth:boolean |null ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch) => {
+export const authMeThunk = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => 
+        async (dispatch) => {
          let data = await userAPI.getauthMe()              
         if (data.resultCode === ResultCodesEnum.Succes) {
-            let { id, email, login } = data.data
-            dispatch(setUserData(id, email, login, true))
+            let { userId, email, login } = data.data
+            dispatch(setUserData(userId, email, login, true))
         }
 }   
 

@@ -49,8 +49,8 @@ export enum ResultCodesEnum{
     Succes = 0,
     Error = 1
 }
-type getAuthMe ={
-    data:{id: number, email:string, login:string}
+type getAuthMeType ={
+    data:{userId: number, email:string, login:string}
     resultCode:ResultCodesEnum
     messages:Array<string>
 }
@@ -91,8 +91,8 @@ export const userAPI = {
             return responce.data
         })
     },
-    findUsers( term: string){
-        return instance.get(`users?term=${term}`)
+    findUsers( term: string, friend:boolean){
+        return instance.get(`users?term=${term}&friend=${friend}`)
         .then(responce=>{
             return responce.data
         })
@@ -105,7 +105,7 @@ export const userAPI = {
     },
 
     getauthMe(){
-        return instance.get<getAuthMe>(`auth/me`)
+        return instance.get<getAuthMeType>(`auth/me`)
         .then(responce =>{
             return responce.data
         })
@@ -138,10 +138,13 @@ export const userAPI = {
         })
     },
 
+   
     
-    async getUserLogin(formData:formData){
-        const responce = await instance.post('auth/login/', formData);
-        return responce;
+    getUserLogin(formData:any){
+        return instance.post('auth/login/', formData)
+        .then( responce =>{
+            return responce;
+        })
     }
 
 }

@@ -4,12 +4,11 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import NewsContainerConnect from './components/News/NewsContainer';
 import MusicContainer from './components/Music/MusicContainer';
 import Settings from './components/Settings/Settings';
-import LoginContainer from './components/Login/LoginContainer';
 import UsersContainer from './components/Users/UsersContainer'
 import { Routes, Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
-
+import LoginConnect from './components/Login/Login';
 
 
 
@@ -38,7 +37,7 @@ const App = (props) => {
           <Route  exact path='/music' element={<MusicContainer />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/users' element={<UsersContainer />} />
-          <Route path='/login' element={<LoginContainer/>} />
+          <Route path='/login' element={<LoginConnect/>} />
         </Routes >
       </div>
     </div>

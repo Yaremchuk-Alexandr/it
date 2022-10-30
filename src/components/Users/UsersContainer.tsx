@@ -10,7 +10,7 @@ import { AppStateType } from "../../redux/redux-store";
 type PropsType ={
     getUsers:(currentPage:number , pageSize: number )=> void
     pageChanges:(pageNumber: number, pageSize:number )=> void
-    findUsersThunk:( term:string) => void
+    findUsersThunk:( term:string, friend:boolean) => void
     currentPage:number
     pageSize:number
     isToggleFetching:boolean
@@ -21,6 +21,7 @@ type PropsType ={
     unfollowThunk:(userId: number) => Promise<void>
     followThunk: (userId: number) => Promise<void>
     term:string
+    friend:boolean
 
     
 }
@@ -39,7 +40,7 @@ class UsersAPI extends React.Component<PropsType> {
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any, ): void {
         if(this.props.term !== prevProps.term){
-        this.props.findUsersThunk(this.props.term)
+        this.props.findUsersThunk(this.props.term, this.props.friend)
         }
         
     }

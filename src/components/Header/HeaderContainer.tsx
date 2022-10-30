@@ -1,7 +1,7 @@
 import { AppStateType } from '../../redux/redux-store';
 import React, {  } from "react";
 import { connect } from "react-redux";
-import { setUserData, authMeThunk, setUserDataType } from "../../redux/auth-reducer";
+import { setUserData, authMeThunk} from "../../redux/auth-reducer";
 import {setToggleFetching} from '../../redux/users-page-reducer'
 import { useEffect } from "react";
 import { userLoginThunk } from '../../redux/login-reducer';

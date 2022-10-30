@@ -14,16 +14,21 @@ const Users = (props: any) => {
     <div>
 
       <Formik
-        initialValues={{ term: '' }}
+        initialValues={{ term: '', friends:'' }}
 
         onSubmit={(values, { setSubmitting }) => {
-          props.findUsersThunk(values.term)
+          props.findUsersThunk(values.term,values.friends)
           setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
           <Form>
             <Field type="input" name="term" />
+            <Field as="select" name="friends">
+              <option value="Any">Any</option>
+             <option value="false">Folollow</option>
+             <option value="true">Unfollow</option>
+           </Field>
             <button type="submit" disabled={isSubmitting}>
               Find Users
             </button>

@@ -33,13 +33,13 @@ type addUserDataType ={
     type:typeof LOGIN_USER
     id:any 
 }
-export const addUserData =(id:string):addUserDataType=> ({type:LOGIN_USER, id})
+export const addUserData =(id:any):addUserDataType=> ({type:LOGIN_USER, id})
 
 
 export const userLoginThunk = (formData:any): ThunkAction<void, AppStateType, unknown, addUserDataType> => 
         (dispatch)=> {
-        return  userAPI.getUserLogin( {...formData} )
-            // dispatch(addUserData(addUserData))
+            dispatch(addUserData(formData))
+            return  userAPI.getUserLogin( {...formData} )
 }
 
 

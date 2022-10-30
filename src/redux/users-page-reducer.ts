@@ -8,7 +8,7 @@ const SET_USERS  = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOTAL_USERS_CURRENT  = 'TOTAL_USERS_CURRENT';
 const TOGGLE_ISFETCHING  = 'TOGGLE_ISFETCHING';
-const FIND_USERS='FIND_USERS'
+
 
 
 export type userType ={
@@ -80,9 +80,7 @@ const usersPageReducer = (state = initialState, action:ActionsTypes): userInitia
         case TOGGLE_ISFETCHING: {
             return { ...state, isToggleFetching: action.isToggleFetching }
         }
-        // case FIND_USERS:{
-        //     return { ...state, users: action.users }
-        // }
+
         default:
             return { ...state }
     }
@@ -134,9 +132,9 @@ export const getUsers = (currentPage:number, pageSize:number) => async (dispatch
         dispatch(setUsers(data.items))
     // dispatch(setTotalUsersCount(data.totalCount))
 }
-export const findUsersThunk= ( term:string) => async (dispatch:any) => {
+export const findUsersThunk= ( term:string, friend:boolean) => async (dispatch:any) => {
     dispatch(setToggleFetching(true))
-    let data = await userAPI.findUsers(term)
+    let data = await userAPI.findUsers(term,friend)
         dispatch(setToggleFetching(false))
         dispatch(setUsers(data.items))
     
