@@ -1,10 +1,9 @@
 import { Field, Form, Formik } from 'formik';
 import { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userAPI } from "../../api/api";
-import { authMeThunk, setUserData } from '../../redux/auth-reducer';
-import { userLoginThunk } from '../../redux/login-reducer';
+import { setUserData } from '../../redux/auth-reducer';
 import { AppStateType } from '../../redux/redux-store';
 
 
@@ -35,9 +34,7 @@ import { AppStateType } from '../../redux/redux-store';
 
 // const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
-
-
-const Login = (props: { userLoginThunk: (arg0: any) => any; authMeThunk: (arg0: string | null, arg1: string | null, arg2: boolean | null) => void; }) => {
+const Login = () => {
 
     const isAuth = useSelector((state:AppStateType)=> state.auth.isAuth)
   
@@ -53,20 +50,16 @@ const Login = (props: { userLoginThunk: (arg0: any) => any; authMeThunk: (arg0: 
 
     return (<div>
         <h2>Login</h2>
-        <LoginForm  
-                    userLoginThunk ={props.userLoginThunk}
-                    authMeThunk = {props.authMeThunk}      
-                    />
+        <LoginForm />
             </div>
     )
 }
 
-const mapStateToProps = (state: AppStateType) => { }
-export const LoginConnect = connect(mapStateToProps, { authMeThunk, userLoginThunk })(Login)
+
 export default Login
 
 /// FORMIK FORM 
-const LoginForm = (props:any) => {
+const LoginForm = () => {
 
     const dispatch = useDispatch()
 
