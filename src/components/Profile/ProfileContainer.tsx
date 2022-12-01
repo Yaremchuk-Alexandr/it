@@ -1,38 +1,29 @@
-import React from "react";
 import Profile from "./profile";
 import { connect } from "react-redux";
 import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer";
 import {setToggleFetching} from '../../redux/users-page-reducer'
 import { useEffect  } from "react";
 import { useParams } from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect'
 import { compose } from "redux"
 import { AppStateType } from '../../redux/redux-store'
-import { useSearchParams } from "react-router-dom"
 
 
 
 let ProfileContainer = (props:any) => {
   let params = useParams()
- 
   useEffect(() => {
-    
     props.getUserProfileThunk(params.userId)
     props.getUserStatusThunk (params.userId)
     props.getMyStatusThunk(props.userId)
-    
-  }, [ params.userId, props.status])    
+  }, [params.userId, props, props.status])    
 
-  
-  
-  
   return ( <Profile 
-                        {...props }
-                        profile={props.profile}
-                        status = {props.status}
-                        updateStatus = { props.updateStatus}
-                        getMyStatus= {props.getMyStatusThunk}
-                  /> )
+              {...props }
+              profile={props.profile}
+              status = {props.status}
+              updateStatus = { props.updateStatus}
+              getMyStatus= {props.getMyStatusThunk}
+            /> )
 }
 
 const mapStateToProps =(state:AppStateType) =>{
@@ -40,7 +31,6 @@ const mapStateToProps =(state:AppStateType) =>{
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     myStatus:state.profilePage.myStatus
-    
     }
   }
 

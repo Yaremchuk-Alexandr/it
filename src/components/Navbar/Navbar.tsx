@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from '../Navbar/Navbar.module.css'
-import { Link, NavLink } from 'react-router-dom';
-// import { Menu, Divider } from 'antd'
+import { NavLink } from 'react-router-dom';
 import {
   FileSearchOutlined,
   HomeOutlined,
@@ -10,9 +9,66 @@ import {
   SettingOutlined,
   SoundOutlined,
 } from '@ant-design/icons'
-import { Col, Layout, MenuProps, Row } from 'antd'
+import { MenuProps, Row } from 'antd'
 import { Menu } from 'antd'
 import Sider from 'antd/lib/layout/Sider';
+
+
+const items: MenuItem[] = [
+  getItem(<NavLink to={'/profile/'}>Profile</NavLink>, '2', <HomeOutlined />, undefined, undefined),
+  getItem(<NavLink to={'/dialogs/'} >Dialogs</NavLink>, '1', <MessageOutlined />, undefined, undefined),
+  getItem(<NavLink to={'/news'} >News</NavLink>, '3', <FileSearchOutlined />, undefined, undefined),
+  getItem(<NavLink to={'/music'} >Music</NavLink>, '4', <SoundOutlined />, undefined, undefined),
+  getItem(<NavLink to={'/settings'} >Settings</NavLink>, '5', <SettingOutlined />, undefined, undefined),
+  getItem(<NavLink to={'/users'} >Find Users</NavLink>, '6', <SearchOutlined />, undefined, undefined)
+];
+
+const Navbar: React.FC = () => {
+
+
+  return (
+    <Row className={classes.navRow}>
+      {/* <Col flex='auto' > */}
+      <Sider
+        //  style={{all:'initial'}} // при активации не влияей соотношение в % навигации  и контента
+        theme="light"
+        breakpoint="md"
+        collapsedWidth="1"
+      >
+        <Menu
+          style={{ border: 'none' }}
+          defaultSelectedKeys={['2']}
+          mode="inline"
+          theme="light"
+          items={items}
+        />
+
+      </Sider>
+    </Row>
+
+
+  );
+};
+
+export default Navbar;
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
 
 
 
@@ -72,12 +128,12 @@ import Sider from 'antd/lib/layout/Sider';
 //         <div className={`${classes.link} ${classes.siteBar}`}>
 //         <span className={classes.siteBarName}>Friends</span>
 
-//          <div className={classes.sideBarItems}> 
+//          <div className={classes.sideBarItems}>
 //           {/* style={{ width: 180 }}
 //           defaultSelectedKeys={['1']}
 //           defaultOpenKeys={['sub1']}
 //           mode={'vertical'}
-//           theme={'dark'} 
+//           theme={'dark'}
 //           >  */}
 //           {navBarFriends}
 //           <div className={classes.sideBarItems}></div>
@@ -85,69 +141,6 @@ import Sider from 'antd/lib/layout/Sider';
 //           </div>
 //           </Menu>
 //       </div>
-//       </>  
+//       </>
 //   )
 // }
-
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem(<NavLink  to={'/profile/'}>Profile</NavLink>, '2', <HomeOutlined />, undefined, undefined),
-  getItem(<NavLink to={'/dialogs/'} >Dialogs</NavLink>, '1', <MessageOutlined />, undefined, undefined),
-  getItem(<NavLink to={'/news'} >News</NavLink>, '3', <FileSearchOutlined />, undefined, undefined),
-  getItem(<NavLink to={'/music'} >Music</NavLink>, '4', <SoundOutlined />, undefined, undefined),
-  getItem(<NavLink to={'/settings'} >Settings</NavLink>, '5', <SettingOutlined />, undefined, undefined),
-  getItem(<NavLink to={'/users'} >Find Users</NavLink>, '6', <SearchOutlined />, undefined, undefined)
-
-];
-
-const Navbar: React.FC = () => {
-
-  
-  return (
-    <Row className={classes.navRow}>
-      {/* <Col flex='auto' > */}
-
-          <Sider
-      
-          //  style={{all:'initial'}} // при активации не влияей соотношение в % навигации  и контента
-          theme="light"
-            breakpoint="md"
-            collapsedWidth="1"
-          >
-
-            <Menu
-               style ={{border:'none'}}
-              defaultSelectedKeys={['2']}
-              mode="inline"
-              theme="light"
-              items={items}
-            />
-
-          </Sider>
-        {/* </div> */}
-      {/* </Col> */}
-    </Row>
-
-
-  );
-};
-
-export default Navbar;

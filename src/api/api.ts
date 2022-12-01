@@ -2,13 +2,6 @@ import axios from "axios";
 import { userType } from "../redux/users-page-reducer";
 
 
-const instance = axios.create ({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers:{
-        'API-KEY': '9192d1c4-6459-423b-a226-5da62a4fc6a6'
-    }
-})
 /// MUSIC API 
 const options = {
     method: 'GET',
@@ -27,9 +20,8 @@ export const getMusic = {
     }    
 }    
 
-  export const searchMusic = {
-    
-    async searchMusiclist(term:any){
+export const searchMusic = {
+    async searchMusiclist(term:string){
         const optionsSearch  = {
             method: 'GET',
             url: 'https://shazam.p.rapidapi.com/search',
@@ -39,51 +31,20 @@ export const getMusic = {
               'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
             }
           };
-        const response = await axios.request(optionsSearch);
+    const response = await axios.request(optionsSearch);
         return response.data.tracks.hits
     }    
 }    
 
 
-export enum ResultCodesEnum{
-    Succes = 0,
-    Error = 1
-}
-type getAuthMeType ={
-    data:{userId: number, email:string, login:string, resultCode: number}
-    resultCode:ResultCodesEnum
-    messages:Array<string>
-}
- type logAutMeType ={
-    resultCode:ResultCodesEnum
-    messages: Array<String>
-    data: {}
- }
-type getUsersType ={
-    items: Array<userType>
-    totalCount: number
-    error?:string
-}
-type makeFollowUnfolowUserType = {
-    resultCode:ResultCodesEnum
-    messages:Array<string>
-    data:{}
-}
-type userProf ={
-    id: number
-    name:string
-    status:string
-    photos:{
-        small:string
-        large:string
+// base settings for Axios
+const instance = axios.create ({
+    withCredentials: true,
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    headers:{
+        'API-KEY': '9192d1c4-6459-423b-a226-5da62a4fc6a6'
     }
-    followed:boolean
-}
-type UserProfileType ={
-    items : Array<userProf>
-    totalCount:number
-    error?: string
-}
+})
 export const userAPI = {
     getUsers(currentPage:number = 1, pageSize:number = 5){
         return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -138,21 +99,14 @@ export const userAPI = {
         })
     },
 
-   
-    
     getUserLogin(formData:formData){
         return instance.post('auth/login/', formData)
         .then( responce =>{
             return responce;
         })
     }
+}
 
-}
-type formData= {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 export const userStatusApi = {
     
     getUserStatus (userId:number = 25930){
@@ -170,8 +124,6 @@ export const userStatusApi = {
 
 
 //// GET NEWS
-
-
 var optionsNews = {
     withCredentials: true,
     method: 'GET',
@@ -186,12 +138,50 @@ export const getNewsList = {
     async getNews(){
         const response = await axios.request(optionsNews)
         return response.data.articles
-       
     }
 }
 
-// axios.request(options).then(function (response) {
-//     console.log(response.data);
-// }).catch(function (error) {
-//     console.error(error);
-// });
+export enum ResultCodesEnum{
+    Succes = 0,
+    Error = 1
+}
+type getAuthMeType ={
+    data:{userId: number, email:string, login:string, resultCode: number}
+    resultCode:ResultCodesEnum
+    messages:Array<string>
+}
+ type logAutMeType ={
+    resultCode:ResultCodesEnum
+    messages: Array<String>
+    data: {}
+ }
+type getUsersType ={
+    items: Array<userType>
+    totalCount: number
+    error?:string
+}
+type makeFollowUnfolowUserType = {
+    resultCode:ResultCodesEnum
+    messages:Array<string>
+    data:{}
+}
+type userProf ={
+    id: number
+    name:string
+    status:string
+    photos:{
+        small:string
+        large:string
+    }
+    followed:boolean
+}
+type UserProfileType ={
+    items : Array<userProf>
+    totalCount:number
+    error?: string
+}
+export type formData= {
+    email: string
+    password: string
+    rememberMe: boolean
+}

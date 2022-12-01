@@ -25,11 +25,8 @@ const reducers = combineReducers({
     news: newsReducer
 }) 
 
-type reducerType = typeof reducers
-export type AppStateType = ReturnType <reducerType>
-
-
-
-
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 export default store;
+
+type reducerType = typeof reducers
+export type AppStateType = ReturnType <reducerType>

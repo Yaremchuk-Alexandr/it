@@ -2,8 +2,6 @@ import { addPost,getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk} from 
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
-
-
 const mapStateToProps = (state) => { 
     return {
         state: state.profilePage.posts,
@@ -11,6 +9,12 @@ const mapStateToProps = (state) => {
         myStatus:state.profilePage.myStatus
     }
 }
+
+const MyPostsContainer = connect(mapStateToProps, 
+    {getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk, addPost})(MyPosts)
+
+export default MyPostsContainer;
+
 // const mapDispatchToProps = (dispatch) => {
    
 //     return {
@@ -22,9 +26,3 @@ const mapStateToProps = (state) => {
 //         }
 //     }
 // }
-
-const MyPostsContainer = connect(mapStateToProps, 
-    {getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk, addPost})(MyPosts)
-
-export default MyPostsContainer;
-

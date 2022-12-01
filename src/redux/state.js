@@ -1,9 +1,9 @@
+//Old state withOut Redux
+
+
 // import profilePageReducer from './profile-page-reducer';
 // import dialogsPageReducer from './dialogs-page-reducer';
 // import navbarReducer from './navbar-reducer';
-
-
-
 
 
 // let store = {

@@ -1,14 +1,3 @@
- 
-
-type friendType={
-    id:number,
-    url:string,
-    name:string
-} 
-
-type initialStateType = {
-    friends: Array<friendType>
-}
 
 let initialState: initialStateType = {
     friends: [
@@ -18,12 +7,17 @@ let initialState: initialStateType = {
       ]
 }
 
-//export type InitialStateType = typeof initialState
-
 const navbarReducer =(state = initialState, action:any):initialStateType =>{
-
-
     return {...state}
 }
 
 export default navbarReducer
+
+type friendType={
+    id:number,
+    url:string,
+    name:string
+} 
+type initialStateType = {
+    friends: Array<friendType>
+}

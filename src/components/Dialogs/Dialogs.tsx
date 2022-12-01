@@ -5,94 +5,11 @@ import { DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined } from '@ant-d
 import { Avatar, Button, Comment, Tooltip, Form, List } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-interface CommentItem {
-  author: string;
-  avatar: string;
-  content: React.ReactNode;
-  // datetime: string;
-}
 
-interface EditorProps {
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onSubmit: () => void;
-  submitting: boolean;
-  value: string;
-}
-
-const CommentList = ({ comments }: { comments: CommentItem[] }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-    itemLayout="horizontal"
-    renderItem={props => <Comment {...props} />}
-  />
-);
-
-const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-        Add Comment
-      </Button>
-    </Form.Item>
-  </>
-);
-
-// const maxLengt30 = maxLengthCreator(30)
-
-
-
-// const MessagesForm = (props:any) => {
-//     return (
-//         <form onSubmit={props.handleSubmit}>
-//             <div>
-//                 <Field name={'message'} placeholder={'new message'} component={Element}  elementtype='textarea' validate={[requered, maxLengt30]} />
-//                 <button> Submit </button>
-//             </div>
-//         </form>
-//     )
-// }
-
-// const MessagesReduxForm = reduxForm({form:'Messages'})(MessagesForm)
-
-// type messagePropsType = {
-//     message:string
-//     id:number
-// }
-// const Message:FC <messagePropsType> = (props) => {
-
-//     return <div className={classes.message}>{props.message}</div>
-// }
-
-// export type dialogsPropsType = {
-//     dialogs:[]
-//     // dialogsPage:dialogInitialState
-//     id:number
-//     // addMessage:(formData:any)=>void
-// }
-
-
-
-// const Dialogs:FC <dialogsPropsType> = (props) => {
 const Dialogs = () => {
   const dialogsPage = useSelector((state: AppStateType) => state.dialogsPage.dialogs)
   const messages = useSelector((state: AppStateType) => state.dialogsPage.messages)
  
-  // const dispatch = useDispatch()
-  // let dialogsPage= useSelector((state:AppStateType)=> state.dialogsPage)
-
-
-
-  // const dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />)
-  // const messagesElements =dialogsPage.messages.map(message => <div key={message.id}><Message  message={message.massage} id={message.id} /></div> )
-
-
-  // const onSubmit= (formData:any) =>{
-  //     dispatch (addMessage(formData))
-  // }
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [action, setAction] = useState<string | null>(null);
@@ -129,7 +46,7 @@ const Dialogs = () => {
     return <Comment key={dialogs.id} avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />} actions={actions} author={dialogs.name} content={messages.map((mass) => <div key={mass.id}>{mass.massage}</div>)} />
   })
 
-///////////////////////////////////////////////// ADD MESSAGES //////////
+/////// ADD MESSAGES //////////
 
   
 const [comments, setComments] = useState<CommentItem[]>([]);
@@ -150,7 +67,6 @@ const handleSubmit = () => {
         author: 'Han Solo',
         avatar: 'https://joeschmoe.io/api/v1/random',
         content: <p>{value}</p>,
-        // datetime: moment('2016-11-22').fromNow(),
       },
     ]);
   }, 1000);
@@ -160,10 +76,113 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
   setValue(e.target.value);
 };
 
-
-  //   }
 return (
-    // FOR REDUX FORM
+    <>
+      <div>{mess}</div>
+      {comments.length > 0 && <CommentList comments={comments} />}
+      <Comment
+        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+        content={
+          <Editor
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            value={value}
+          />
+        }
+      />
+  </>
+);
+
+}
+
+
+
+export default Dialogs
+
+const CommentList = ({ comments }: { comments: CommentItem[] }) => (
+  <List
+    dataSource={comments}
+    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+    itemLayout="horizontal"
+    renderItem={props => <Comment {...props} />}
+  />
+);
+
+const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
+  <>
+    <Form.Item>
+      <TextArea rows={4} onChange={onChange} value={value} />
+    </Form.Item>
+    <Form.Item>
+      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+        Add Comment
+      </Button>
+    </Form.Item>
+  </>
+);
+
+interface CommentItem {
+  author: string;
+  avatar: string;
+  content: React.ReactNode;
+}
+
+interface EditorProps {
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: () => void;
+  submitting: boolean;
+  value: string;
+}
+
+// const maxLengt30 = maxLengthCreator(30)
+
+
+
+// const MessagesForm = (props:any) => {
+//     return (
+//         <form onSubmit={props.handleSubmit}>
+//             <div>
+//                 <Field name={'message'} placeholder={'new message'} component={Element}  elementtype='textarea' validate={[requered, maxLengt30]} />
+//                 <button> Submit </button>
+//             </div>
+//         </form>
+//     )
+// }
+
+// const MessagesReduxForm = reduxForm({form:'Messages'})(MessagesForm)
+
+// type messagePropsType = {
+//     message:string
+//     id:number
+// }
+// const Message:FC <messagePropsType> = (props) => {
+
+//     return <div className={classes.message}>{props.message}</div>
+// }
+
+// export type dialogsPropsType = {
+//     dialogs:[]
+//     // dialogsPage:dialogInitialState
+//     id:number
+//     // addMessage:(formData:any)=>void
+// }
+
+// const Dialogs:FC <dialogsPropsType> = (props) => {
+    // const dispatch = useDispatch()
+    // let dialogsPage= useSelector((state:AppStateType)=> state.dialogsPage)
+  
+  
+  
+    // const dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />)
+    // const messagesElements =dialogsPage.messages.map(message => <div key={message.id}><Message  message={message.massage} id={message.id} /></div> )
+  
+  
+    // const onSubmit= (formData:any) =>{
+    //     dispatch (addMessage(formData))
+    // }
+
+ // Whith  REDUX FORM
     // <div className={classes.dialogs}> 
     //     < div className={classes.dialog}>
     //         <div className={classes.dialogsElements}>
@@ -185,46 +204,3 @@ return (
 
     //         </div>
     //     </div>
-    <>
-      <div>{mess}</div>
-      {comments.length > 0 && <CommentList comments={comments} />}
-      <Comment
-        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
-        content={
-          <Editor
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            submitting={submitting}
-            value={value}
-          />
-        }
-      />
-    
-  </>
-);
-
-    //{/* <Comment
-    //             actions={actions}
-    //             author={[...mess]}
-    //   avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
-    //   content={
-    //     <p> */}
-    //       {/* {[...messagess]} */}
-    //     {/* </p>
-    //   } */}
-    //   datetime={
-    //     <Tooltip title="2016-11-22 11:22:33">
-    //       <span>{"DATA"}</span>
-    //     </Tooltip>
-    //   }
-    // />
-
-    //     </div>
-}
-
-
-
-export default Dialogs
-
-
-

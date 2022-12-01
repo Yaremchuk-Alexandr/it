@@ -14,7 +14,6 @@ import Header from './Header';
 const  HeaderContainerAPI= (props:any):React.CElement<any, any> =>  {
     
 useEffect(()=>{
-    
     props.authMeThunk(props.email, props.login, props.isAuth)
     // props.userLoginThunk(null)
    
@@ -34,6 +33,11 @@ const mapStateToProps = (state:AppStateType) =>{
         email: state.auth.email
     }
 }
+
+
+const HeaderContainer = connect ( mapStateToProps, { setUserData, setToggleFetching, authMeThunk, userLoginThunk, logOutMeThunk})(HeaderContainerAPI)
+export default HeaderContainer
+
 // type HeaderContainerThunksTypes = {
 //         userLoginThunk:(formData:{id: number|null, email:string |null, login: string| null} )=>void
 //         setUserData:(userId: number , email: string  , login: string , isAuth: boolean  ) => setUserDataType
@@ -46,9 +50,4 @@ const mapStateToProps = (state:AppStateType) =>{
 //     isAuth: boolean |null
 //     login : string | null
 //     email: string | null
-
 // }
-
-const HeaderContainer = connect ( mapStateToProps, { setUserData, setToggleFetching, authMeThunk, userLoginThunk, logOutMeThunk})(HeaderContainerAPI)
-// type PropsFromRedux = ConnectedProps <AppStateType & HeaderContainerThunksTypes>
-export default HeaderContainer

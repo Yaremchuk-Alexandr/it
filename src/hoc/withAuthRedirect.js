@@ -1,12 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-let mapStateToPropsForRedirect = (state) =>({
+let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth
 })
-
 
 export let withAuthRedirect = (Component) => {
     let RedirectComponent = (props) => {
@@ -15,13 +14,11 @@ export let withAuthRedirect = (Component) => {
             if (!props.isAuth) {
                 return navigate('/login')
             }
-        }, [props.isAuth] ) 
-
+        }, [props.isAuth])
         return <Component {...props} />
-    } 
+    }
 
-let ConnectedAuthRedirectComponent = connect (mapStateToPropsForRedirect) (RedirectComponent)
-
-return ConnectedAuthRedirectComponent
+    let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent)
+    return ConnectedAuthRedirectComponent
 
 }

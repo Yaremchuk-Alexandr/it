@@ -1,3 +1,5 @@
+export {}
+
 // import { connect} from 'react-redux';
 // import {userLoginThunk} from '../../redux/login-reducer';
 // import {authMeThunk} from '../../redux/auth-reducer';
@@ -28,10 +30,6 @@
     // return < Login/>
                     // userLoginThunk ={props.userLoginThunk}
                     // authMeThunk = {props.authMeThunk}
-                   
-                  
-  
-
 // }
 // type mapStateToPropsType = {
     // isAuth: boolean |null| undefined
@@ -46,9 +44,7 @@
 //         email: state.auth.email,
 //         login: state.auth.login,
 //         userId: state.auth.userId
-
 //     }
-    
 // }
 
 
@@ -63,4 +59,3 @@
 // type OwnProps= {}
 // type Props = LoginContainerThunksTypes & mapStateToPropsType & OwnProps
 
-export {}

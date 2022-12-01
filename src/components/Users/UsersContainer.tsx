@@ -5,32 +5,7 @@ import Users from "./Users";
 import Preloader from "../../common/Preloader/Preloader";
 import { AppStateType } from "../../redux/redux-store";
 
-
-
-type PropsType ={
-    getUsers:(currentPage:number , pageSize: number )=> void
-    pageChanges:(pageNumber: number, pageSize:number )=> void
-    findUsersThunk:( term:string, friend:boolean) => void
-    currentPage:number
-    pageSize:number
-    isToggleFetching:boolean
-    setToggleFetching:(isToggleFetching: boolean)=> void
-    users: userType[]
-    totalUsersCount: number
-    pagesCount: number
-    unfollowThunk:(userId: number) => Promise<void>
-    followThunk: (userId: number) => Promise<void>
-    setCurrentPage: (currentPage:number) => void
-    term:string
-    friend:boolean
-
-    
-}
-
-
 class UsersAPI extends React.Component<PropsType> {
-
-    
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize) // используем санк
     }
@@ -43,7 +18,6 @@ class UsersAPI extends React.Component<PropsType> {
         if(this.props.term !== prevProps.term){
         this.props.findUsersThunk(this.props.term, this.props.friend)
         }
-        
     }
 
     render() {
@@ -65,19 +39,43 @@ class UsersAPI extends React.Component<PropsType> {
     }
 }
 
-
 const mapStateToProps = (state:AppStateType) => {
-
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isToggleFetching: state.usersPage.isToggleFetching
-       
-
     }
 }
+
+const UsersContainer = connect(mapStateToProps,
+                             { unFollow, follow,  setCurrentPage, 
+                               setTotalUsersCount, setToggleFetching, getUsers, pageChanges, 
+                               unfollowThunk, followThunk, findUsersThunk })
+                        (UsersAPI)
+
+export default UsersContainer
+
+type PropsType ={
+    getUsers:(currentPage:number , pageSize: number )=> void
+    pageChanges:(pageNumber: number, pageSize:number )=> void
+    findUsersThunk:( term:string, friend:boolean) => void
+    currentPage:number
+    pageSize:number
+    isToggleFetching:boolean
+    setToggleFetching:(isToggleFetching: boolean)=> void
+    users: userType[]
+    totalUsersCount: number
+    pagesCount: number
+    unfollowThunk:(userId: number) => Promise<void>
+    followThunk: (userId: number) => Promise<void>
+    setCurrentPage: (currentPage:number) => void
+    term:string
+    friend:boolean
+}
+
+
 // const mapDispatchToProps = (dispatch) =>{
 //     return {
 //         unfollow: (id)=>{
@@ -99,13 +97,3 @@ const mapStateToProps = (state:AppStateType) => {
 //             dispatch(setToggleFetchingAC(isToggleFetching))
 //         }      
 //     }
-
-
-
-const UsersContainer = connect(mapStateToProps,
-                             { unFollow, follow,  setCurrentPage, 
-                               setTotalUsersCount, setToggleFetching, getUsers, pageChanges, 
-                               unfollowThunk, followThunk, findUsersThunk })
-                        (UsersAPI)
-
-export default UsersContainer

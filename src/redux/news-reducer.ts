@@ -1,19 +1,11 @@
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { getNewsList } from '../api/api'
-import { AppStateType } from './redux-store';
 
 const GET_NEWS = 'GET_NEWS'
-
-type newsInitialState = {
-    newsList:[]
-}
-
 
 const initialState:newsInitialState = {
     newsList: []
 }
-
 const NewsReducer = (state = initialState, action:getNewsType):newsInitialState => {
     switch (action.type) {
         case GET_NEWS: {
@@ -27,13 +19,7 @@ const NewsReducer = (state = initialState, action:getNewsType):newsInitialState 
     }
 }
 
-type getNewsType = {
-    type: typeof GET_NEWS
-    action: []
-}
 export const getNews = (action:[] ): getNewsType => ({ type: GET_NEWS, action })
-
-
 export const getNewsThunk = () => {
      return (dispatch:Dispatch) => {
         getNewsList.getNews()
@@ -44,8 +30,13 @@ export const getNewsThunk = () => {
     };
 }
 
-
 export default NewsReducer
 
-
+type newsInitialState = {
+    newsList:[]
+}
+type getNewsType = {
+    type: typeof GET_NEWS
+    action: []
+}
 

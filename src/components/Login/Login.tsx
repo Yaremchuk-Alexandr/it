@@ -9,11 +9,6 @@ import { Button, Checkbox, Divider, Form, Input, Row, message } from 'antd';
 import classes from './login.module.css'
 import { addUserData } from '../../redux/login-reducer';
 
-
-
-
-
-
 // const maxLenth30 = maxLengthCreator(30)
 
 // const LoginForm = (props: { handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined; }) => {
@@ -41,8 +36,8 @@ import { addUserData } from '../../redux/login-reducer';
 // const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
 const Login: React.FC = (props) => {
-    let isAuth = useSelector ((state:AppStateType)=> state.auth.isAuth)
-  let navigate = useNavigate()
+    let isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+    let navigate = useNavigate()
     useEffect(() => {
         if (isAuth) {
             return navigate('/profile/25930')
@@ -57,44 +52,82 @@ const Login: React.FC = (props) => {
     )
 }
 
-
-
 export default Login
 
-/// FORMIK FORM 
 const LoginForm = (props: any) => {
-
     const email = useSelector((state: AppStateType) => state.auth.email)
     const login = useSelector((state: AppStateType) => state.auth.login)
     const userId = useSelector((state: AppStateType) => state.auth.userId)
     const resultCode = useSelector((state: AppStateType) => state.auth.resultCode)
     const messages = useSelector((state: AppStateType) => state.auth.messages)
-    
-
-
     const dispatch = useDispatch()
-
-  
-
 
     const onFinish = async (values: any) => {
         await userAPI.getUserLogin({ ...values })
-            dispatch(setUserData(userId, email, login, true, 0))
-            userAPI.getauthMe()   
+        dispatch(setUserData(userId, email, login, true, 0))
+        userAPI.getauthMe()
         if (resultCode === 0) {
             dispatch(addUserData({ ...values }))
-            
-            
-        } 
+        }
         if (resultCode === 1) {
             dispatch(badResultCode(1, await message.warning([...messages])))
         }
-    
     }
-    
+
 
     return (
         <div className={classes.loginForm}>
+            <Form
+                onFinish={onFinish}>
+                <Form.Item
+                    name="email"
+                    label="E-mail"
+                    rules={[
+                        {
+                            type: 'email',
+                            message: 'The input is not valid E-mail!',
+                        },
+                        {
+                            required: true,
+                            message: 'Please input your E-mail!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password !',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
+                
+                <Form.Item
+                    name="rememberMe"
+                    valuePropName="checked"
+                >
+                    <Checkbox>
+                        Remember Me
+                    </Checkbox>
+                </Form.Item><Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        SEND
+                    </Button>
+                </Form.Item>
+
+            </Form>
+        </div >
+    );
+}
+
+
 {/* <Formik                                                                              for FOMIK
 initialValues={{ email: '', password: '', rememberMe: false }}
 onSubmit={async (values, { setSubmitting }) => {
@@ -115,58 +148,3 @@ onSubmit={async (values, { setSubmitting }) => {
     </Form>
 )}
 </Formik> */}
-
-        {/* Ant Design*/}
-        <Form
-            onFinish={onFinish}>
-            <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your E-mail!',
-                    },
-                ]}
-            >
-                <Input />
-
-            </Form.Item>
-
-            <Form.Item
-
-                name="password"
-                label="Password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password !',
-                    },
-                ]}
-            >
-
-                <Input.Password />
-            </Form.Item>
-            <Form.Item
-                name="rememberMe"
-                valuePropName="checked"
-            >
-                <Checkbox>
-                    Remember Me
-                </Checkbox>
-            </Form.Item><Form.Item>
-                <Button type="primary" htmlType="submit">
-                    SEND
-                </Button>
-            </Form.Item>
-
-        </Form>
-    </div >
-);
-}
-
-

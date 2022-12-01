@@ -1,3 +1,8 @@
+
+export {}
+
+// WithOut ReactHooc 
+
 // import React from 'react'
 // import Dialogs from './Dialogs';
 // import { addMessage } from '../../redux/dialogs-page-reducer';
@@ -7,13 +12,10 @@
 // import { AppStateType } from '../../redux/redux-store';
 
 
-
-
 // const mapStateToProps = (state:AppStateType) => {
     
 //     return {
 //         dialogsPage:state.dialogsPage
-
 
 //     }
 // }
@@ -27,4 +29,3 @@
 // const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 // export default DialogsContainer;
 
-export {}
