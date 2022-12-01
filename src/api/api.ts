@@ -50,7 +50,7 @@ export enum ResultCodesEnum{
     Error = 1
 }
 type getAuthMeType ={
-    data:{userId: number, email:string, login:string}
+    data:{userId: number, email:string, login:string, resultCode: number}
     resultCode:ResultCodesEnum
     messages:Array<string>
 }
@@ -132,7 +132,7 @@ export const userAPI = {
     },
 
     getUserProfile(id:number){
-        return instance.get<UserProfileType>(id ? 'profile/'+id : 'profile/'+ 2)
+        return instance.get<UserProfileType>(id ? 'profile/'+id : 'profile/'+ 25930)
         .then(responce => {
             return responce
         })
@@ -140,7 +140,7 @@ export const userAPI = {
 
    
     
-    getUserLogin(formData:any){
+    getUserLogin(formData:formData){
         return instance.post('auth/login/', formData)
         .then( responce =>{
             return responce;
@@ -155,7 +155,7 @@ type formData= {
 }
 export const userStatusApi = {
     
-    getUserStatus (userId:number){
+    getUserStatus (userId:number = 25930){
         return instance.get(`profile/status/`+ userId)  
     },
 

@@ -18,9 +18,9 @@ export type dialogInitialState= {
 }
 const initialState: dialogInitialState = {
     dialogs: [
-        { id: 1, name: 'Sasha' },
-        { id: 2, name: 'Tanya' },
-        { id: 3, name: 'Dima' },
+        // { id: 1, name: 'Sasha' },
+        // { id: 2, name: 'Tanya' },
+        // { id: 3, name: 'Dima' },
         { id: 4, name: 'Jeka' },
         { id: 5, name: 'Olya' },
       ],
@@ -40,7 +40,7 @@ const dialogsPageReducer = (state = initialState, action:addMessageType):dialogI
   
             return {
                 ...state,
-                messages : [...state.messages, {id: 7, massage: action.formData.message }],
+                messages : [...state.messages, {id: Math.random()*100, massage: action.formData.massage }],
             }
         default:
             return {...state}

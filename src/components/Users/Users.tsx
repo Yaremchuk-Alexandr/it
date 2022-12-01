@@ -1,14 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import classes from './users.module.css';
 import icon from '../../img/target-user-icon.svg';
 import { NavLink } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
+import { Button, Pagination, PaginationProps} from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStateType } from '../../redux/redux-store';
+import { setUsers } from "../../redux/users-page-reducer";
+import { userAPI } from "../../api/api";
 
 
 
 
 
 const Users = (props: any) => {
+
+  const totalCount = useSelector((state:AppStateType)=> state.usersPage.totalUsersCount)
+  const pageNumber = useSelector((state:AppStateType)=>state.usersPage.currentPage)
+  const pageSize = useSelector((state:AppStateType)=>state.usersPage.pageSize)
+  const dispatch =useDispatch()
 
   const FindUsersWithFormik = (props: any) => (
     <div>
@@ -23,39 +34,55 @@ const Users = (props: any) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <Field type="input" name="term" />
-            <Field as="select" name="friends">
-              <option value="Any">Any</option>
+            <Field type="input" name="term" placeholder='Enter friends name'  className={classes.FindUserInput}/>
+            <Field as="select" name="friends" style={{marginLeft:'15px'}} >
+             <option value="Any">Any</option>
              <option value="false">Folollow</option>
              <option value="true">Unfollow</option>
            </Field>
-            <button type="submit" disabled={isSubmitting}>
+            <Button htmlType="submit" disabled={isSubmitting} type='ghost' icon={<SearchOutlined />} style={{marginLeft:'15px'}} >
               Find Users
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
     </div>
   );
+  //// work without ANT DESIGN PAGINATION
+  // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+  // let pages = []
+  // for (let i = 1; i <= pagesCount; i++) {
+  //   pages.push(i)
+  // }
 
-  let pages = []
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
-  }
+
+  //// work with ANT DESIGN PAGINATION
+
+ const [current, setCurrent] = useState(1);
+
+ const onChange: PaginationProps['onChange'] = async (pageNumber, pageSize) => {
+    dispatch(props.setToggleFetching(true))
+    dispatch(props.setCurrentPage(pageNumber))
+    let data = await userAPI.getPageChanges(pageNumber, pageSize)
+    dispatch(setUsers(data.items))
+    dispatch(props.setToggleFetching(false))
+   setCurrent(pageNumber);
+ }
 
   return (<div className={classes.userswrapper}>
 
     <FindUsersWithFormik findUsersThunk={props.findUsersThunk}/>
 
-    <div className={classes.userPagination}>
+    {/* <div className={classes.userPagination}>   //// work without ANT DESIGN PAGINATION
       {pages.map(p => {
 
         return <span key={Math.random() * 10} className={props.currentPage === p ? classes.selectedPage : null}
           onClick={(e) => { props.onPageChanges(p) }}> {p} </span>
       })}
-    </div>
+    </div> */}
+
+    <div className={classes.userPagination}><Pagination  current={current} responsive={true} defaultCurrent={1} total={totalCount} onChange={onChange}  /> </div>
     {
       props.users.map((user:any) =>
         <div key={user.id} className={classes.userItem} >
@@ -64,10 +91,10 @@ const Users = (props: any) => {
               <img alt='' src={user.photos.small != null ? user.photos.small : icon} className={classes.logo} />
             </NavLink>
             {user.followed
-              ? <button className={classes.usersBtn} onClick={() => { props.unfollowThunk(user.id) }}> UNFOLLOW </button>
+              ? <Button type='primary' block danger className={classes.usersBtn} onClick={() => { props.unfollowThunk(user.id) }}> UNFOLLOW </Button>
 
 
-              : <button className={classes.usersBtn} onClick={() => { props.followThunk(user.id) }}> FOLLOW </button>
+              : <Button type='primary' block className={classes.usersBtn} onClick={() => { props.followThunk(user.id) }}> FOLLOW </Button>
             }
           </div>
           <div className={classes.UserCenter}  >
@@ -84,4 +111,7 @@ const Users = (props: any) => {
 }
 
 
+
 export default Users
+
+

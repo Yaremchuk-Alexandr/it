@@ -11,5 +11,11 @@
 }
 
 .musicLink{
-    color: green;
+    color: #1394fe;
+}
+
+.inputField{
+    border:0; 
+    border-bottom:1px solid #eee; 
+
 }

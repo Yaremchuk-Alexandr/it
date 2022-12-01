@@ -2,6 +2,8 @@
 import React, {  ReactNode } from "react";
 import classes from './Music.module.css';
 import { Formik, Form, Field} from 'formik';
+import { Button, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 
 
@@ -27,10 +29,10 @@ const Music = (props:any) => {
           >
             {({ isSubmitting }) => (
               <Form>
-                <Field type="input" name="term" />
-                <button type="submit" disabled={isSubmitting} >
+               <Field className={classes.inputField} type="input" name="term" placeholder ='Enter music title '/>
+                <Button htmlType="submit" icon={<SearchOutlined />} type='primary' disabled={isSubmitting}  style={{marginLeft:'10px'}} >
                   FIND MUSIC
-                </button>
+                </Button>
               </Form>
             )}
           </Formik>

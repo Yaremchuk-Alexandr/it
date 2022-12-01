@@ -130,7 +130,7 @@ export const getUsers = (currentPage:number, pageSize:number) => async (dispatch
     let data = await userAPI.getUsers(currentPage, pageSize)
         dispatch(setToggleFetching(false))
         dispatch(setUsers(data.items))
-    // dispatch(setTotalUsersCount(data.totalCount))
+    dispatch(setTotalUsersCount(data.totalCount))
 }
 export const findUsersThunk= ( term:string, friend:boolean) => async (dispatch:any) => {
     dispatch(setToggleFetching(true))

@@ -21,7 +21,7 @@ useEffect(()=>{
 }, [props])
  
     return  < Header {...props}
-                    userLoginThunk ={props.userLoginThunk}
+                    // userLoginThunk ={props.userLoginThunk}
                     logOutMeThunk= {props.logOutMeThunk}
                     />
                     

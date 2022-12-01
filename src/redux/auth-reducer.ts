@@ -4,6 +4,7 @@ import { AppStateType } from './redux-store';
 
 const SET_AUTH = 'SET_AUTH';
 const LOGOUT ='LOGOUT'
+const BAD_RESULT_CODE = 'BAD_RESULT_CODE'
 
 
 type authInitialStateType = {
@@ -12,6 +13,8 @@ type authInitialStateType = {
     userId: number | null
     isAuth: boolean |null
     isFething: boolean
+    resultCode: number 
+    messages: Array<String>
 }
 const initialState: authInitialStateType = {
     email: null,
@@ -19,7 +22,8 @@ const initialState: authInitialStateType = {
     userId: null,
     isAuth: null,
     isFething: false,
-  
+    resultCode: 0 ,
+    messages:['']
 
 }
 
@@ -40,30 +44,52 @@ const authReducer = (state = initialState, action: ActionsTypes): authInitialSta
                 isAuth:false    
             }
         }
+        case BAD_RESULT_CODE:{
+            return {
+                ...state,
+                resultCode : action.resultCode,
+                messages:action.messages,
+                isAuth:false    
+            }
+        }
         default:
             return { ...state }
     }
 }
-type ActionsTypes = setUserDataType| logOutMeType
+type ActionsTypes = setUserDataType| logOutMeType | badResultCodeType
 export type setUserDataType ={
     type: typeof SET_AUTH
-    data: { userId: number| null, email: string| null, login: string | null, isAuth: boolean}
+    data: { userId: number| null, email: string| null, login: string | null, isAuth: boolean, resultCode: number}
 }
 type logOutMeType = {
     type: typeof LOGOUT
     data:{userId:null, email:null, login: null}
 }
 
-export const setUserData = (userId: number |null, email: string | null, login: string | null, isAuth: boolean):setUserDataType => ({ type: SET_AUTH, data: { userId, email, login, isAuth } })
+type badResultCodeType = {
+    type : typeof BAD_RESULT_CODE
+    resultCode:number
+    messages:Array<String>
+}
+
+export const setUserData = (userId: number |null, email: string | null, login: string | null, isAuth: boolean, resultCode: number):setUserDataType => ({ type: SET_AUTH, data: { userId, email, login, isAuth, resultCode } })
 export const logOutMe = (userId:  null, email: null, login: null):logOutMeType => ({ type: LOGOUT, data: { userId, email, login} })
+export const badResultCode = (resultCode: number, messages:Array<String>): badResultCodeType =>({type: BAD_RESULT_CODE, resultCode, messages})
 
 export const authMeThunk = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => 
         async (dispatch) => {
          let data = await userAPI.getauthMe()              
         if (data.resultCode === ResultCodesEnum.Succes) {
-            let { userId, email, login } = data.data
-            dispatch(setUserData(userId, email, login, true))
+            let { userId, email, login, resultCode } = data.data
+            dispatch(setUserData(userId, email, login, true, 0 ))
+        } 
+        if (data.resultCode === ResultCodesEnum.Error){
+            dispatch(badResultCode(data.resultCode, data.messages) )
+            
+            // return Promise.reject (new Error('You are not autorize !'));
+            
         }
+        
 }   
 
 export const logOutMeThunk = (id: any, email: any, login: any): ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch) => {

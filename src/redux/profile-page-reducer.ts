@@ -8,6 +8,7 @@ const SET_STATUS = 'SET_STATUS';
 const ADD_POST = 'ADD-POST';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_MY_STATUS ='SET_MY_STATUS'
+const SET_POST_STATUS='SET_POST_STATUS'
 
 
 
@@ -32,7 +33,7 @@ const initialState:profileInitialState = {
         { id: 4, message: 'I am fine, and you?', like: 1 }
     ],
 
-    newPostText: 'new post',
+    newPostText: '',
     profile: null,
     status: '',
     myStatus: ''
@@ -45,7 +46,7 @@ const profilePageReducer = (state = initialState, action:ActionsTypes): profileI
         case ADD_POST:{
             return {
                 ...state,
-                posts: [...state.posts, {id:7, message:action.formData.post , like:0}]
+                posts: [...state.posts, {id:Math.random()*1000, message:action.formData.post , like:0}]
             }
         }
 
@@ -58,18 +59,28 @@ const profilePageReducer = (state = initialState, action:ActionsTypes): profileI
         case SET_MY_STATUS: {
             return { ...state, myStatus: action.status }
         }
+        case SET_POST_STATUS: {
+            return { ...state, newPostText: action.newPost }
+        }
         default:
             return { ...state }
     }
 
 }
-type ActionsTypes = addPostType | setProfileType | setUserStatusType | setMyStatusType 
+type ActionsTypes = addPostType | setProfileType | setUserStatusType | setMyStatusType | setPostStatusType
 
 type addPostType = {
     type: typeof ADD_POST
     formData:{post:string}
 }
+
+type setPostStatusType={
+    type:typeof SET_POST_STATUS
+    newPost:string
+}
 export const addPost = (formData:{post:string}):addPostType => ({ type: ADD_POST, formData})
+export const  setPostStatus = (newPost:string):setPostStatusType => ({type:SET_POST_STATUS, newPost})
+
 
 type setProfileType = {
     type : typeof SET_PROFILE
@@ -90,16 +101,16 @@ export const setMyStatus = (status:string):setMyStatusType => ({ type: SET_MY_ST
 
 
 
-export const getUserProfileThunk = (params:any, setToggleFetching:any) => async (dispatch:Dispatch<ActionsTypes>) => {
-        dispatch(setToggleFetching(true))
+export const getUserProfileThunk = (params:any) => async (dispatch:Dispatch<ActionsTypes>) => {
+        
         let response = await userAPI.getUserProfile(params)
-            dispatch(setToggleFetching(false))
             dispatch(setProfile(response.data))
-          
-    }
+}
+
 export const getUserStatusThunk = (userId:number) => async (dispatch:Dispatch<ActionsTypes>) => {
        let response = await  userStatusApi.getUserStatus(userId)
-             dispatch(setUserStatus(response.data))       
+             dispatch(setUserStatus(response.data)) 
+           
 }
 export const updateUserStatusThunk = (status:string) => async (dispatch:Dispatch<ActionsTypes>) => {   
         let response = await userStatusApi.updateUserStatus(status)
@@ -117,6 +128,7 @@ export const updateMyStatusThunk = (status:string) => async (dispatch:Dispatch<A
 export const getMyStatusThunk = () => async (dispatch:Dispatch<ActionsTypes>, getState:()=>AppStateType) => {
     let response = await userStatusApi.getMyStatus() 
          dispatch(setMyStatus (response.data))
+        
 }
 
 

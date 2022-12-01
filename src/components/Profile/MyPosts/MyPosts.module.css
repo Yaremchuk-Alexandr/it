@@ -7,10 +7,10 @@
     
   }
 
-  .item img{
-    width: 40px;
-    height: 40px;
-  }
+  /* .item img{
+    width: 50%;
+    height: 50%;
+  } */
 
   .posts{
     width: 200px;
@@ -19,8 +19,14 @@
   .MyPosts{
     display: flex;
     align-items:center;
-    margin-bottom: 15px;
-    margin-left: 2px;
+    cursor: pointer;
+    margin-left: 5px;
+    flex-wrap: wrap;
+    align-content: stretch;
+    align-items: baseline;
+    justify-content: flex-start
+ 
+
   }
   button{
     height: 30px;
@@ -34,14 +40,14 @@
 
   .myStatus{
     display: flex;
-    width: 200px;
-    height: 25px;
-    align-items: stretch;
     cursor: pointer;
     margin-left: 5px;
-
+    flex-wrap:nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: baseline
   }
-  .myStatus:hover{
+  /* .myStatus:hover{
     font-size: 20px;
     box-shadow: 0px 3px 3px 6px #5F9EA0;
-  }
+  } */

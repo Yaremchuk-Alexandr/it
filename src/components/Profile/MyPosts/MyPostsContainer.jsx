@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 // }
 
 const MyPostsContainer = connect(mapStateToProps, 
-    {getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk, addPost })(MyPosts)
+    {getUserStatusThunk,updateMyStatusThunk, getMyStatusThunk, addPost})(MyPosts)
 
 export default MyPostsContainer;
 

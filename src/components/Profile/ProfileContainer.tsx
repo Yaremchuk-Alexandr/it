@@ -4,30 +4,24 @@ import { connect } from "react-redux";
 import { addPost, setProfile, getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk,updateMyStatusThunk, getMyStatusThunk } from "../../redux/profile-page-reducer";
 import {setToggleFetching} from '../../redux/users-page-reducer'
 import { useEffect  } from "react";
-import {useParams} from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
-import { compose } from "redux";
-import { AppStateType } from '../../redux/redux-store';
+import { useParams } from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect'
+import { compose } from "redux"
+import { AppStateType } from '../../redux/redux-store'
+import { useSearchParams } from "react-router-dom"
+
+
 
 let ProfileContainer = (props:any) => {
-
   let params = useParams()
-
+ 
   useEffect(() => {
-    props.getUserProfileThunk(params.userId, setToggleFetching )
+    
+    props.getUserProfileThunk(params.userId)
     props.getUserStatusThunk (params.userId)
     props.getMyStatusThunk(props.userId)
     
-    
-  //   props.setToggleFetching(true)
-  //   axios.get( params.userId ? 'https://social-network.samuraijs.com/api/1.0/profile/'+params.userId : 'https://social-network.samuraijs.com/api/1.0/profile/'+ 2, {withCredentials:true})
-  //   .then(response => {
-  //       props.setToggleFetching(false)
-  //       props.setProfile(response.data)
-        
-  //   }
-  // )
-  }, [params])    
+  }, [ params.userId, props.status])    
 
   
   

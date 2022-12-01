@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@babel/plugin-transform-typescript": "^7.19.3",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,8 +15,10 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/redux-form": "^8.3.5",
+    "antd": "^4.24.0",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
+    "formik-antd": "^2.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-h5-audio-player": "^3.8.6",

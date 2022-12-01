@@ -20,6 +20,7 @@ type PropsType ={
     pagesCount: number
     unfollowThunk:(userId: number) => Promise<void>
     followThunk: (userId: number) => Promise<void>
+    setCurrentPage: (currentPage:number) => void
     term:string
     friend:boolean
 
@@ -58,6 +59,7 @@ class UsersAPI extends React.Component<PropsType> {
                 setToggleFetching={this.props.setToggleFetching}
                 unfollowThunk= {this.props.unfollowThunk}
                 followThunk ={this.props.followThunk}
+                setCurrentPage={this.props.setCurrentPage}
             />
         </>)
     }
